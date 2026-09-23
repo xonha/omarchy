@@ -37,6 +37,11 @@ const barSource = fs.readFileSync(root + '/shell/plugins/bar/Bar.qml', 'utf8')
 const shellSource = fs.readFileSync(root + '/shell/shell.qml', 'utf8')
 
 assert(/function toggleBarTransparency\(\): string \{[\s\S]*?shell\.bar\.toggleTransparency\(\)/.test(shellSource), 'shell exposes the bar transparency toggle over IPC')
+const doubleClickHandler = barSource.slice(barSource.indexOf('onDoubleClicked: function(mouse) {'))
+assert(
+  /mouse\.button === Qt\.LeftButton && root\.barConfig\.doubleClickTogglesTransparency !== false/.test(doubleClickHandler.slice(0, doubleClickHandler.indexOf('root.toggleTransparency()'))),
+  'bar double-click transparency gesture can be disabled while remaining enabled by default'
+)
 
 // put tolerates a placement target the bar does not carry, so the IPC call
 // must reach the registry's put rather than route back through enable.

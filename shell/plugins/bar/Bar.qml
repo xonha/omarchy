@@ -1709,7 +1709,7 @@ Item {
         suppressClick = false
         return
       }
-      if (mouse.button === Qt.LeftButton) {
+      if (mouse.button === Qt.LeftButton && root.barConfig.doubleClickTogglesTransparency !== false) {
         root.toggleTransparency()
         mouse.accepted = true
       }
