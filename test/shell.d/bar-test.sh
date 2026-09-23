@@ -39,7 +39,7 @@ const shellSource = fs.readFileSync(root + '/shell/shell.qml', 'utf8')
 assert(/function toggleBarTransparency\(\): string \{[\s\S]*?shell\.bar\.toggleTransparency\(\)/.test(shellSource), 'shell exposes the bar transparency toggle over IPC')
 const doubleClickHandler = barSource.slice(barSource.indexOf('onDoubleClicked: function(mouse) {'))
 assert(
-  /mouse\.button === Qt\.LeftButton && root\.barConfig\.doubleClickTogglesTransparency !== false/.test(doubleClickHandler.slice(0, doubleClickHandler.indexOf('root.toggleTransparency()'))),
+  /mouse\.button === Qt\.LeftButton && root\.barConfig\.transparencyToggle !== false/.test(doubleClickHandler.slice(0, doubleClickHandler.indexOf('root.toggleTransparency()'))),
   'bar double-click transparency gesture can be disabled while remaining enabled by default'
 )
 
